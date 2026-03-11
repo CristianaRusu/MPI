@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:17
+    container_name: running_tracker_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: superparola123
+      POSTGRES_DB: running_tracker
+    ports:
+      - "5432:5432"
