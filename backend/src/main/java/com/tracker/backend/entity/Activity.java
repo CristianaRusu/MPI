@@ -13,12 +13,17 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Legătura cu utilizatorul (Un user poate avea mai multe activități)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Double totalDistanceMeters;
+    private Double distanceKm;
+
+    private LocalDateTime createdDate;
+    @PrePersist
+    public void prePersist() {
+        createdDate = LocalDateTime.now();
+    }
 }

@@ -3,16 +3,31 @@ package com.tracker.backend.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "users") // "user" e cuvânt rezervat în baza de date, așa că folosim "users"
-@Data // Lombok ne generează automat Getters și Setters în spate
+@Table(name = "users")
+@Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false, unique = true)
     private String email;
-    private Double weightKg; // Util pentru a calcula caloriile
+
+    @Column(nullable = false)
+    private String password;
+
+    private LocalDateTime createdDate;
+    @PrePersist
+    public void prePersist() {
+        createdDate = LocalDateTime.now();
+    }
+
+    private LocalDateTime lastLogin;
 }
