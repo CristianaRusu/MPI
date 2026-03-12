@@ -29,13 +29,12 @@ public class UserServiceImpl implements UserService {
         final User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-        // Nu setam weightKg aici, il protejam
 
         User savedUser = userRepository.save(user);
         return convertToDto(savedUser);
     }
 
-    private UserDto convertToDto(User user) {
+    private UserDto convertToDto(final User user) {
         return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getPassword());
     }
 }

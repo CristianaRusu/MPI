@@ -20,7 +20,7 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public UserDto createUser(UserDto userDto) {
+    public UserDto createUser(final UserDto userDto) {
         return getUserService().createUser(userDto);
     }
 }
