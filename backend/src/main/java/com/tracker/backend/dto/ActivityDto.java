@@ -15,10 +15,12 @@ public class ActivityDto {
     private Double distanceKm;
 
 
-    public ActivityDto(Long id, UserDto userDto, LocalDateTime startTime, LocalDateTime endTime) {
+    public ActivityDto(Long id, UserDto userDto, LocalDateTime startTime, LocalDateTime endTime, LocalDateTime createdDate, Double distanceKm) {
         this.id = id;
         this.userDto = userDto;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.createdDate = createdDate;
+        this.distanceKm = distanceKm;
     }
 }
