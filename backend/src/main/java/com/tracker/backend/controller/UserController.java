@@ -17,13 +17,19 @@ public class UserController {
     @Resource
     private UserFacade userFacade;
 
-    @GetMapping
+    @GetMapping("/get/all/users")
     public List<UserDto> getAllUsers() {
         return getUserFacade().getAllUsers();
     }
 
-    @PostMapping
-    public UserDto createUser(@RequestBody UserDto userDto) {
+    @GetMapping("/get/user/by/username/email")
+    public UserDto getUserByUsernameOrEmail(@RequestParam final String name) {return getUserFacade().getUserByUsernameOrEmail(name);}
+
+    @PostMapping("/create/user")
+    public UserDto createUser(@RequestBody final UserDto userDto) {
         return getUserFacade().createUser(userDto);
     }
+
+    @GetMapping("delete/user/by/id")
+    public void deleteUserById(@RequestParam final Long id) {getUserFacade().deleteUser(id);}
 }
