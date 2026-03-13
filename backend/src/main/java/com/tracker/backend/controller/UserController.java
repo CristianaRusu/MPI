@@ -1,26 +1,29 @@
 package com.tracker.backend.controller;
 
 import com.tracker.backend.dto.UserDto;
-import com.tracker.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tracker.backend.facade.UserFacade;
+import jakarta.annotation.Resource;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Getter(AccessLevel.PROTECTED)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    @Resource
+    private UserFacade userFacade;
 
     @GetMapping
     public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+        return getUserFacade().getAllUsers();
     }
 
     @PostMapping
     public UserDto createUser(@RequestBody UserDto userDto) {
-        return userService.createUser(userDto);
+        return getUserFacade().createUser(userDto);
     }
 }

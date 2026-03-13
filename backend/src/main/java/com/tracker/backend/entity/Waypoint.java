@@ -13,8 +13,7 @@ public class Waypoint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Legătura cu activitatea (O activitate are multe puncte GPS pe hartă)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_id", nullable = false)
     private Activity activity;
 
