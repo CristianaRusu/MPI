@@ -32,4 +32,14 @@ public class UserServiceImpl implements UserService {
         final User savedUser = userRepository.save(user);
         return UserConverter.entityToUserDto(savedUser);
     }
+
+    @Override
+    public UserDto getUserByUsernameOrEmail(String name) {
+        return UserConverter.entityToUserDto(userRepository.findByUsernameOrEmail(name, name));
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }

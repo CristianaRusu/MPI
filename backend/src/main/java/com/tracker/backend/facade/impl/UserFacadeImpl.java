@@ -23,4 +23,12 @@ public class UserFacadeImpl implements UserFacade {
     public UserDto createUser(final UserDto userDto) {
         return getUserService().createUser(userDto);
     }
+
+    @Override
+    public UserDto getUserByUsernameOrEmail(final String name) {
+        return getUserService().getUserByUsernameOrEmail(name);
+    }
+
+    @Override
+    public void deleteUser(final Long id) { getUserService().deleteUser(id); }
 }
