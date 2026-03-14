@@ -12,6 +12,7 @@ import java.util.List;
 @Getter(AccessLevel.PROTECTED)
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
     @Resource
