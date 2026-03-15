@@ -19,7 +19,7 @@ public class ActivityConverter {
         );
     }
 
-    public static Activity DtoToActivityEntity(final ActivityDto activityDto) {
+    public static Activity dtoToActivityEntity(final ActivityDto activityDto) {
         if (activityDto == null) {
             throw new IllegalArgumentException("Activity cannot be null");
         }

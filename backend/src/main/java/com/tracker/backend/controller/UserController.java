@@ -30,6 +30,6 @@ public class UserController {
         return getUserFacade().createUser(userDto);
     }
 
-    @GetMapping("delete/user/by/id")
-    public void deleteUserById(@RequestParam final Long id) {getUserFacade().deleteUser(id);}
+    @DeleteMapping("delete/user/by/{id}")
+    public void deleteUserById(@PathVariable final Long id) {getUserFacade().deleteUser(id);}
 }
