@@ -3,6 +3,7 @@ package com.tracker.backend.controller;
 import com.tracker.backend.dto.ActivityDto;
 import com.tracker.backend.facade.ActivityFacade;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,9 @@ public class ActivityController {
     private ActivityFacade activityFacade;
 
     @GetMapping("/get/all/activities")
-    public List<ActivityDto> getAllActivities() {return getActivityFacade().getAllActivities();}
+    public List<ActivityDto> getAllActivities() {
+        return getActivityFacade().getAllActivities();
+    }
 
     @GetMapping("/get/activity/by/{id}")
     public ActivityDto getActivityById(@PathVariable final Long id) {
@@ -25,7 +28,7 @@ public class ActivityController {
     }
 
     @PostMapping("/create/activity")
-    public ActivityDto createActivity(@RequestBody final ActivityDto activityDto) {
+    public ActivityDto createActivity(@Valid @RequestBody final ActivityDto activityDto) {
         return getActivityFacade().createActivity(activityDto);
     }
 

@@ -32,11 +32,11 @@ public class ActivityServiceImpl implements ActivityService {
         final Activity savedActivity= getActivityRepository().save(activity);
         return ActivityConverter.entityToActivityDto(savedActivity);
     }
-
     @Override
     public ActivityDto getActivityById(Long id) {
-        return ActivityConverter.entityToActivityDto(getActivityRepository().findByActivityId(id));
+        return ActivityConverter.entityToActivityDto(getActivityRepository().findById(id).orElse(null));
     }
+
 
     @Override
     public void deleteActivity(Long id) {
