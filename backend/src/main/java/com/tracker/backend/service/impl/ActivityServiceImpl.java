@@ -35,7 +35,10 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public ActivityDto getActivityById(Long id) {
-        return ActivityConverter.entityToActivityDto(getActivityRepository().findByActivityId(id));
+        Activity activity = getActivityRepository().findById(id)
+                .orElseThrow(() -> new RuntimeException("Activitatea nu a fost găsită!"));
+
+        return ActivityConverter.entityToActivityDto(activity);
     }
 
     @Override
