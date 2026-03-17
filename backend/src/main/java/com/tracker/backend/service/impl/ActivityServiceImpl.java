@@ -64,6 +64,7 @@ public class ActivityServiceImpl implements ActivityService {
                         .orElseThrow(() -> new RuntimeException("Activity not found"))
         );
     }
+
     @Override
     public void deleteActivity(Long id) {
         activityRepository.deleteById(id);
