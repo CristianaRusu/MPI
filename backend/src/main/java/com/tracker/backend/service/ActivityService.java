@@ -9,4 +9,6 @@ public interface ActivityService {
     ActivityDto createActivity(final ActivityDto activityDto);
     ActivityDto getActivityById(final Long id);
     void deleteActivity(final Long id);
+
+    Double calculatePace(Double distance, Double duration);
 }
