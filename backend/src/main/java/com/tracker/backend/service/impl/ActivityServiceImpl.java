@@ -60,10 +60,10 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ActivityDto getActivityById(Long id) {
         return ActivityConverter.entityToActivityDto(
-                activityRepository.findByActivityId(id)
+                activityRepository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("Activity not found"))
         );
     }
-
     @Override
     public void deleteActivity(Long id) {
         activityRepository.deleteById(id);
