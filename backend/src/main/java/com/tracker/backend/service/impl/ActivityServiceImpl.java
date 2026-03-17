@@ -10,17 +10,19 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
 @Service
 public class ActivityServiceImpl implements ActivityService {
+
     @Resource
     private ActivityRepository activityRepository;
 
     @Override
     public List<ActivityDto> getAllActivities() {
-        return getActivityRepository().findAll()
+        return activityRepository.findAll()
                 .stream()
                 .map(ActivityConverter::entityToActivityDto)
                 .toList();
@@ -28,21 +30,43 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public ActivityDto createActivity(ActivityDto activityDto) {
-        final Activity activity = ActivityConverter.dtoToActivityEntity(activityDto);
-        final Activity savedActivity= getActivityRepository().save(activity);
+        Activity activity = ActivityConverter.dtoToActivityEntity(activityDto);
+
+        long durationMillis = Duration
+                .between(activityDto.getStartTime(), activityDto.getEndTime())
+                .toMillis();
+
+        Double durationMin = (double) durationMillis / 60000;
+
+        Double calculatedPace = calculatePace(
+                activityDto.getDistanceKm(),
+                durationMin
+        );
+
+        activity.setPace(calculatedPace);
+
+        Activity savedActivity = activityRepository.save(activity);
         return ActivityConverter.entityToActivityDto(savedActivity);
     }
+
+    @Override
+    public Double calculatePace(Double distance, Double duration) {
+        if (distance == null || distance <= 0 || duration == null || duration <= 0) {
+            return 0.0;
+        }
+        return duration / distance;
+    }
+
     @Override
     public ActivityDto getActivityById(Long id) {
         return ActivityConverter.entityToActivityDto(
-                getActivityRepository().findById(id)
+                activityRepository.findById(id)
                         .orElseThrow(() -> new RuntimeException("Activity not found"))
         );
     }
 
-
     @Override
     public void deleteActivity(Long id) {
-        getActivityRepository().deleteById(id);
+        activityRepository.deleteById(id);
     }
 }

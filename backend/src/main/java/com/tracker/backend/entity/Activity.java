@@ -20,6 +20,7 @@ public class Activity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Double distanceKm;
+    private Double pace;
 
     private LocalDateTime createdDate;
     @PrePersist
