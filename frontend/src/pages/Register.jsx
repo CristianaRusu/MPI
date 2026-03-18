@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Register.css'; // Importăm fișierul de stiluri separat
+import './Register.css';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -25,7 +25,6 @@ const Register = () => {
         setSuccess(false);
 
         try {
-            // Simulare: verificăm dacă email-ul sau username-ul există deja (AC 1)
             if (formData.email === 'test@email.com' || formData.username === 'admin') {
                 throw new Error('Acest email sau username este deja folosit. Te rugăm să încerci altul.');
             }
@@ -79,14 +78,12 @@ const Register = () => {
                     />
                 </div>
 
-                {/* Mesaje de eroare sau succes */}
                 {error && <p className="error-message">{error}</p>}
                 {success && <p className="success-message">Cont creat cu succes!</p>}
 
                 <button type="submit" className="submit-button">Înregistrează-te</button>
             </form>
 
-            {/* Buton/Link către pagina de logare (AC 2) */}
             <div className="login-link-container">
                 <p>Ai deja un cont?</p>
                 <a href="/login" className="login-button">Mergi la pagina de Logare</a>
