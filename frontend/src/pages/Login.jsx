@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         usernameOrEmail: '',
         password: ''
@@ -31,7 +34,12 @@ const Login = () => {
                 const user = await response.json();
                 if (user && user.password === formData.password) {
                     setError('');
+
+                    // 👉 AICI ESTE MAGIA: Salvăm utilizatorul în memoria browserului!
+                    localStorage.setItem('loggedInUser', JSON.stringify(user));
+
                     alert('Logare cu succes! Bine ai venit, ' + user.username + '!');
+                    navigate('/home');
                 } else {
                     setError('Parolă incorectă!');
                 }
@@ -47,13 +55,11 @@ const Login = () => {
     return (
         <div className="login-wrapper">
             <div className="login-container">
-                {}
                 <h1 className="brand-logo">🏃‍♂️ RUN TRACKER</h1>
 
                 <div className="login-box">
                     <h2 className="login-title">Log In</h2>
 
-                    {}
                     <div className="social-buttons">
                         <button className="social-btn facebook-btn">Continuă cu Facebook</button>
                         <button className="social-btn google-btn">Continuă cu Google</button>

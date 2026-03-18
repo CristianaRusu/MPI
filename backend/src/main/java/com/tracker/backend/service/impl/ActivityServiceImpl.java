@@ -57,12 +57,12 @@ public class ActivityServiceImpl implements ActivityService {
         return duration / distance;
     }
 
-    @Override
+   @Override
     public ActivityDto getActivityById(Long id) {
-        return ActivityConverter.entityToActivityDto(
-                activityRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Activity not found"))
-        );
+        Activity activity = activityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Activitatea nu a fost găsită!"));
+
+        return ActivityConverter.entityToActivityDto(activity);
     }
 
     @Override

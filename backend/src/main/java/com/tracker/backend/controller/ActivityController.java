@@ -12,6 +12,7 @@ import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/activities")
 public class ActivityController {
     @Resource
