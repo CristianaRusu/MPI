@@ -9,4 +9,6 @@ public interface UserService {
     UserDto createUser(final UserDto userDto);
     UserDto getUserByUsernameOrEmail(final String name);
     void deleteUser(final Long id);
+
+    void getUserById(long l);
 }
