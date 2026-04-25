@@ -2,6 +2,7 @@ package com.tracker.backend.service.impl;
 
 import com.tracker.backend.converter.ActivityConverter;
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.StatiscticsDto;
 import com.tracker.backend.entity.Activity;
 import com.tracker.backend.repository.ActivityRepository;
 import com.tracker.backend.service.ActivityService;
@@ -68,5 +69,30 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void deleteActivity(Long id) {
         activityRepository.deleteById(id);
+    }
+
+    @Override
+    public StatiscticsDto getStatistics(Long userId) {
+
+        List<Object[]> results = activityRepository.getStatistics(userId);
+
+        Object[] result = results.isEmpty() ? new Object[]{0, 0, 0} : results.get(0);
+
+        Double totalDistance = result[0] != null ? ((Number) result[0]).doubleValue() : 0.0;
+        Double totalTime = result[1] != null ? ((Number) result[1]).doubleValue() : 0.0;
+        Long count = result[2] != null ? ((Number) result[2]).longValue() : 0L;
+
+        double pace = 0;
+        if (totalDistance > 0) {
+            pace = (totalTime / 60.0) / totalDistance;
+        }
+
+        StatiscticsDto dto = new StatiscticsDto();
+        dto.setTotalDistance(totalDistance);
+        dto.setTotalTime(totalTime.longValue()); // secunde
+        dto.setMediumPace(pace);
+        dto.setTotalActivityCount(count.intValue());
+
+        return dto;
     }
 }

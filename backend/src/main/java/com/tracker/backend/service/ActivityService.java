@@ -1,6 +1,7 @@
 package com.tracker.backend.service;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.StatiscticsDto;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface ActivityService {
     void deleteActivity(final Long id);
 
     Double calculatePace(Double distance, Double duration);
+    StatiscticsDto getStatistics(Long userId);
 }
