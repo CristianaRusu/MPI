@@ -6,12 +6,13 @@ import com.tracker.backend.entity.User;
 import com.tracker.backend.repository.UserRepository;
 import com.tracker.backend.service.UserService;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -46,5 +47,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public void getUserById(long l) {
 
+    }
+
+    @Override
+    public ResponseEntity<String> changePassword(Long id, String currentPassword, String newPassword) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Userul nu a fost găsit!"));
+
+        if (!user.getPassword().equals(currentPassword)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Parola curentă este incorectă!");
+        }
+
+        user.setPassword(newPassword);
+        userRepository.save(user);
+        return ResponseEntity.ok("Parola a fost schimbată cu succes!");
+    }
+
+    @Override
+    public ResponseEntity<String> uploadProfileImage(Long id, MultipartFile image) throws IOException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Userul nu a fost găsit!"));
+
+        user.setProfileImage(image.getBytes());
+        userRepository.save(user);
+        return ResponseEntity.ok("Imaginea a fost încărcată cu succes!");
     }
 }

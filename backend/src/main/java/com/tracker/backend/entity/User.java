@@ -30,4 +30,7 @@ public class User {
     }
 
     private LocalDateTime lastLogin;
+
+    @Column(columnDefinition = "BYTEA")
+    private byte[] profileImage;
 }

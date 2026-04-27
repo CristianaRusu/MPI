@@ -7,7 +7,9 @@ import jakarta.annotation.Resource;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -31,4 +33,14 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public void deleteUser(final Long id) { getUserService().deleteUser(id); }
+
+    @Override
+    public ResponseEntity<String> changePassword(Long id, String currentPassword, String newPassword) {
+        return getUserService().changePassword(id, currentPassword, newPassword);
+    }
+
+    @Override
+    public ResponseEntity<String> uploadProfileImage(Long id, MultipartFile image) throws IOException {
+        return getUserService().uploadProfileImage(id, image);
+    }
 }
