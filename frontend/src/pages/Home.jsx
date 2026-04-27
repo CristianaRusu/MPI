@@ -51,7 +51,7 @@ const Home = () => {
 
         const loggedInUser = JSON.parse(userString);
 
-        const startDate = new Date(`${activityData.date}T10:00:00`);
+        const startDate = new Date(`${activityData.date}T00:00:00`);
 
         const durationInMinutes = parseInt(activityData.duration, 10) || 0;
 
@@ -66,7 +66,9 @@ const Home = () => {
             distanceKm: parseFloat(activityData.distance),
             startTime: formatForJava(startDate),
             endTime: formatForJava(endDate),
-            userDto: loggedInUser
+            userDto: {
+                id: loggedInUser.id
+            }
         };
 
         try {
@@ -104,7 +106,7 @@ const Home = () => {
                 <button className="btn-neon green" onClick={() => setIsModalOpen(true)}>
                     ➕ Add running session
                 </button>
-                <button className="btn-neon blue" onClick={() => alert('În viitor: PLP cu alergările...')}>
+                <button className="btn-neon blue" onClick={() => navigate('/activities')}>
                     📋 See Running Sessions
                 </button>
                 <button className="btn-neon purple" onClick={() => alert('Pagina de cont în construcție...')}>

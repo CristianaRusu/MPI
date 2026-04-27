@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import ActivityDetails from './pages/ActivityDetails';
+import ActivityList from './pages/ActivityList';
 
 function App() {
     return (
@@ -17,6 +18,8 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 {}
                 <Route path="/activity/:id" element={<ActivityDetails />} />
+                {}
+                <Route path="/activities" element={<ActivityList />} />
             </Routes>
         </Router>
     );

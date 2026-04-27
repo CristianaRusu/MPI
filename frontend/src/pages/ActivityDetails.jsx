@@ -34,7 +34,6 @@ const ActivityDetails = () => {
         return (diffMinutes / activity.distanceKm).toFixed(2);
     };
 
-    // Funcția de ștergere
     const handleDelete = async () => {
         if (window.confirm("Ești sigur că vrei să ștergi această sesiune de alergare?")) {
             try {
@@ -67,7 +66,7 @@ const ActivityDetails = () => {
     return (
         <div className="activity-details-container">
             <header className="details-header">
-                <button className="back-btn" onClick={() => navigate('/home')}>← Înapoi la listă</button>
+                <button className="back-btn" onClick={() => navigate('/activities')}>← Înapoi la listă</button>
                 <h2>Detalii Sesiune # {activity.id}</h2>
             </header>
 
@@ -78,10 +77,9 @@ const ActivityDetails = () => {
                 </div>
 
                 <div className="detail-row">
-                    <span>🕒 Interval:</span>
+                    <span>⏱️ Durată:</span>
                     <strong>
-                        {new Date(activity.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -
-                        {new Date(activity.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {Math.round((new Date(activity.endTime) - new Date(activity.startTime)) / 60000)} min
                     </strong>
                 </div>
 
