@@ -1,7 +1,7 @@
 package com.tracker.backend.controller;
 
 import com.tracker.backend.dto.ActivityDto;
-import com.tracker.backend.dto.StatiscticsDto;
+import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.facade.ActivityFacade;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -40,7 +40,7 @@ public class ActivityController {
     }
 
     @GetMapping("/statistics/{userId}")
-    public StatiscticsDto getStatistics(@PathVariable Long userId) {
+    public StatisticsDto getStatistics(@PathVariable Long userId) {
         return getActivityFacade().getStatistics(userId);
     }
 }

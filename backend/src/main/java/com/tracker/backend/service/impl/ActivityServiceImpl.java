@@ -2,7 +2,7 @@ package com.tracker.backend.service.impl;
 
 import com.tracker.backend.converter.ActivityConverter;
 import com.tracker.backend.dto.ActivityDto;
-import com.tracker.backend.dto.StatiscticsDto;
+import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.entity.Activity;
 import com.tracker.backend.repository.ActivityRepository;
 import com.tracker.backend.service.ActivityService;
@@ -72,7 +72,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public StatiscticsDto getStatistics(Long userId) {
+    public StatisticsDto getStatistics(Long userId) {
 
         List<Object[]> results = activityRepository.getStatistics(userId);
 
@@ -87,7 +87,7 @@ public class ActivityServiceImpl implements ActivityService {
             pace = (totalTime / 60.0) / totalDistance;
         }
 
-        StatiscticsDto dto = new StatiscticsDto();
+        StatisticsDto dto = new StatisticsDto();
         dto.setTotalDistance(totalDistance);
         dto.setTotalTime(totalTime.longValue()); // secunde
         dto.setMediumPace(pace);

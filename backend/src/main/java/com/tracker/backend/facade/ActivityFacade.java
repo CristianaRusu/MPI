@@ -1,7 +1,7 @@
 package com.tracker.backend.facade;
 
 import com.tracker.backend.dto.ActivityDto;
-import com.tracker.backend.dto.StatiscticsDto;
+import com.tracker.backend.dto.StatisticsDto;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public interface ActivityFacade {
     ActivityDto getActivityById(final Long id);
     void deleteActivity(final Long id);
 
-    StatiscticsDto getStatistics(Long userId);
+    StatisticsDto getStatistics(Long userId);
 }
