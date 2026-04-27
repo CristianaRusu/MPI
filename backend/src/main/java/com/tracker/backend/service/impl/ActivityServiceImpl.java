@@ -58,7 +58,7 @@ public class ActivityServiceImpl implements ActivityService {
         return duration / distance;
     }
 
-   @Override
+    @Override
     public ActivityDto getActivityById(Long id) {
         Activity activity = getActivityRepository().findById(id)
                 .orElseThrow(() -> new RuntimeException("Activitatea nu a fost găsită!"));
@@ -72,15 +72,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<ActivityDto> getFilteredRuns(LocalDateTime startDate,
-                                             LocalDateTime endDate,
-                                             Double minDistance,
-                                             Double maxDistance,
-                                             Double minPace,
-                                             Double maxPace) {
+    public List<ActivityDto> getFilteredRuns(final Long userId,
+                                             final LocalDateTime startDate,
+                                             final LocalDateTime endDate,
+                                             final Double minDistance,
+                                             final Double maxDistance,
+                                             final Double minPace,
+                                             final Double maxPace) {
 
         List<Activity> runs = getActivityRepository().findWithFilters(
-                startDate, endDate, minDistance, maxDistance, minPace, maxPace
+                userId, startDate, endDate, minDistance, maxDistance, minPace, maxPace
         );
 
         return runs.stream()

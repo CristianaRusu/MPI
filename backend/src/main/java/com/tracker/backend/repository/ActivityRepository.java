@@ -13,7 +13,8 @@ import java.util.Optional;
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     @Query("""
     SELECT a FROM Activity a
-    WHERE (CAST(:startDate AS timestamp) IS NULL OR a.startTime >= CAST(:startDate AS timestamp))
+    WHERE a.user.id = :userId
+      AND (CAST(:startDate AS timestamp) IS NULL OR a.startTime >= CAST(:startDate AS timestamp))
       AND (CAST(:endDate AS timestamp) IS NULL OR a.startTime <= CAST(:endDate AS timestamp))
       AND (:minDistance IS NULL OR a.distanceKm >= :minDistance)
       AND (:maxDistance IS NULL OR a.distanceKm <= :maxDistance)
@@ -21,6 +22,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
       AND (:maxPace IS NULL OR a.pace <= :maxPace)
 """)
     List<Activity> findWithFilters(
+            Long userId,
             LocalDateTime startDate,
             LocalDateTime endDate,
             Double minDistance,

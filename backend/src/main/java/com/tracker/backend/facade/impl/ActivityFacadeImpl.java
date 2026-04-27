@@ -38,12 +38,13 @@ public class ActivityFacadeImpl implements ActivityFacade {
     }
 
     @Override
-    public List<ActivityDto> getFilteredRuns(LocalDateTime startDate,
-                                      LocalDateTime endDate,
-                                      Double minDistance,
-                                      Double maxDistance,
-                                      Double minPace,
-                                      Double maxPace){
-        return getActivityService().getFilteredRuns(startDate,endDate, minDistance, maxDistance, minPace, maxPace);
+    public List<ActivityDto> getFilteredRuns(final Long userId,
+                                             final LocalDateTime startDate,
+                                      final LocalDateTime endDate,
+                                      final Double minDistance,
+                                      final Double maxDistance,
+                                      final Double minPace,
+                                      final Double maxPace){
+        return getActivityService().getFilteredRuns(userId, startDate,endDate, minDistance, maxDistance, minPace, maxPace);
     }
 }

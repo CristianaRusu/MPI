@@ -10,10 +10,11 @@ public interface ActivityFacade {
     ActivityDto createActivity(final ActivityDto activityDto);
     ActivityDto getActivityById(final Long id);
     void deleteActivity(final Long id);
-    List<ActivityDto> getFilteredRuns(LocalDateTime startDate,
-                                      LocalDateTime endDate,
-                                      Double minDistance,
-                                      Double maxDistance,
-                                      Double minPace,
-                                      Double maxPace);
+    List<ActivityDto> getFilteredRuns(final Long userId,
+                                      final LocalDateTime startDate,
+                                      final LocalDateTime endDate,
+                                      final Double minDistance,
+                                      final Double maxDistance,
+                                      final Double minPace,
+                                      final Double maxPace);
 }

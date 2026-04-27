@@ -39,15 +39,16 @@ public class ActivityController {
         getActivityFacade().deleteActivity(id);
     }
 
-    @GetMapping("/runs")
+    @GetMapping("/runs/{userId}")
     public List<ActivityDto> getFilteredRuns(
-            @RequestParam(required = false) LocalDateTime startDate,
-            @RequestParam(required = false) LocalDateTime endDate,
-            @RequestParam(required = false) Double minDistance,
-            @RequestParam(required = false) Double maxDistance,
-            @RequestParam(required = false) Double minPace,
-            @RequestParam(required = false) Double maxPace
+            @PathVariable final Long userId,
+            @RequestParam(required = false) final LocalDateTime startDate,
+            @RequestParam(required = false) final LocalDateTime endDate,
+            @RequestParam(required = false) final Double minDistance,
+            @RequestParam(required = false) final Double maxDistance,
+            @RequestParam(required = false) final Double minPace,
+            @RequestParam(required = false) final Double maxPace
     ) {
-        return getActivityFacade().getFilteredRuns(startDate, endDate, minDistance, maxDistance, minPace, maxPace);
+        return getActivityFacade().getFilteredRuns(userId, startDate, endDate, minDistance, maxDistance, minPace, maxPace);
     }
 }
