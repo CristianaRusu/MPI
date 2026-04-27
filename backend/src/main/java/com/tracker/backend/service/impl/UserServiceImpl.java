@@ -35,7 +35,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByUsernameOrEmail(String name) {
-        return UserConverter.entityToUserDto(userRepository.findByUsernameOrEmail(name, name));
+        User user = userRepository.findByUsernameOrEmail(name, name);
+        if (user == null) {
+            return null;
+        }
+        return UserConverter.entityToUserDto(user);
     }
 
     @Override
