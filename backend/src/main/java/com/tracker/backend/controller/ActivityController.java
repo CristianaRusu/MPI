@@ -37,4 +37,9 @@ public class ActivityController {
     public void deleteActivityById(@PathVariable final Long id) {
         getActivityFacade().deleteActivity(id);
     }
+
+    @GetMapping("/streak/{userId}")
+    public int getRunningStreak(@PathVariable Long userId) {
+        return getActivityFacade().calculateRunningStreak(userId);
+    }
 }

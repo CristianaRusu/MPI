@@ -9,4 +9,5 @@ public interface ActivityFacade {
     ActivityDto createActivity(final ActivityDto activityDto);
     ActivityDto getActivityById(final Long id);
     void deleteActivity(final Long id);
+    int calculateRunningStreak(Long userId);
 }

@@ -35,4 +35,10 @@ public class ActivityFacadeImpl implements ActivityFacade {
     public void deleteActivity(Long id) {
         getActivityService().deleteActivity(id);
     }
+
+    @Override
+    public int calculateRunningStreak(Long userId) {
+        return getActivityService().calculateRunningStreak(userId);
+    }
+
 }
