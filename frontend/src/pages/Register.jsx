@@ -24,7 +24,7 @@ const Register = () => {
         setSuccess(false);
 
         try {
-            const response = await fetch('http://localhost:8080/api/users/register', {
+            const response = await fetch('http://localhost:8080/api/users/create/user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -37,7 +37,8 @@ const Register = () => {
 
             setSuccess(true);
             alert('Cont creat cu succes! Te poți loga acum.');
-            navigate('/login');
+
+            navigate('/');
 
         } catch (err) {
             setError(err.message || 'A apărut o eroare la conectarea cu serverul.');
@@ -88,7 +89,8 @@ const Register = () => {
 
                 <div className="login-link-container">
                     <p>Ai deja un cont?</p>
-                    <button className="btn-outline gray" onClick={() => navigate('/login')}>
+                    {}
+                    <button className="btn-outline gray" onClick={() => navigate('/')}>
                         Mergi la Login
                     </button>
                 </div>

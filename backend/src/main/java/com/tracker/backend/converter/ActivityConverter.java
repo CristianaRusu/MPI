@@ -8,7 +8,10 @@ public class ActivityConverter {
         if (activity == null) {
             throw new IllegalArgumentException("Activity cannot be null");
         }
+        long durationMillis = java.time.Duration.between(activity.getStartTime(), activity.getEndTime()).toMillis();
+        double durationMinutes = durationMillis / 60000.0;
 
+        double calculatedPace = (activity.getDistanceKm() > 0) ? (durationMinutes / activity.getDistanceKm()) : 0.0;
         return new ActivityDto(
                 activity.getId(),
                 UserConverter.entityToUserDto(activity.getUser()),
