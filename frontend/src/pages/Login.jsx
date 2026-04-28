@@ -35,7 +35,7 @@ const Login = () => {
                 if (user && user.password === formData.password) {
                     setError('');
 
-                    // 👉 AICI ESTE MAGIA: Salvăm utilizatorul în memoria browserului!
+
                     localStorage.setItem('loggedInUser', JSON.stringify(user));
 
                     alert('Logare cu succes! Bine ai venit, ' + user.username + '!');
