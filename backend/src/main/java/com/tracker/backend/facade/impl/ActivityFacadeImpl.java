@@ -1,6 +1,7 @@
 package com.tracker.backend.facade.impl;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.facade.ActivityFacade;
 import com.tracker.backend.service.ActivityService;
 import jakarta.annotation.Resource;
@@ -38,6 +39,8 @@ public class ActivityFacadeImpl implements ActivityFacade {
     }
 
     @Override
+    public StatisticsDto getStatistics(Long userId){
+        return getActivityService().getStatistics(userId);
     public List<ActivityDto> getFilteredRuns(final Long userId,
                                              final LocalDateTime startDate,
                                       final LocalDateTime endDate,

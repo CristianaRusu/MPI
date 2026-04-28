@@ -1,6 +1,7 @@
 package com.tracker.backend.service;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.StatisticsDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface ActivityService {
                                       final Double minPace,
                                       final Double maxPace);
     Double calculatePace(Double distance, Double duration);
+    StatisticsDto getStatistics(Long userId);
 }

@@ -1,6 +1,7 @@
 package com.tracker.backend.controller;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.facade.ActivityFacade;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -39,6 +40,9 @@ public class ActivityController {
         getActivityFacade().deleteActivity(id);
     }
 
+    @GetMapping("/statistics/{userId}")
+    public StatisticsDto getStatistics(@PathVariable Long userId) {
+        return getActivityFacade().getStatistics(userId);
     @GetMapping("/runs/{userId}")
     public List<ActivityDto> getFilteredRuns(
             @PathVariable final Long userId,
