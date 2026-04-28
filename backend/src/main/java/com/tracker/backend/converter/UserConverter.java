@@ -15,7 +15,9 @@ public class UserConverter {
                 user.getEmail(),
                 user.getPassword(),
                 user.getCreatedDate(),
-                user.getLastLogin()
+                user.getLastLogin(),
+                user.getProfileImage()
+
         );
     }
 
@@ -31,7 +33,7 @@ public class UserConverter {
         user.setPassword(userDto.getPassword());
         user.setCreatedDate(userDto.getCreatedDate());
         user.setLastLogin(userDto.getLastLogin());
-
+        user.setProfileImage(userDto.getProfileImage());
         return user;
     }
 }

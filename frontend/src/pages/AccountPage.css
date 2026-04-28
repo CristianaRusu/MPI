@@ -1,0 +1,174 @@
+.account-page-wrapper {
+    min-height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.account-container {
+    width: 100%;
+    max-width: 500px;
+    background: #111;
+    border: 1px solid #222;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.account-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+    min-height: 35px;
+}
+
+.back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #888;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    color: #ccff00;
+    border-color: #ccff00;
+}
+
+.account-header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: white;
+}
+
+/* Secțiunea Profil */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.avatar-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 3px solid #ccff00;
+    margin-bottom: 15px;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    font-size: 3rem;
+    color: #ccff00;
+}
+
+.image-upload-label {
+    font-size: 0.85rem;
+    color: #888;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: underline;
+}
+
+.image-upload-label:hover {
+    color: #ccff00;
+}
+
+.password-section h3 {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+}
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.input-group input {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #ccff00;
+    outline: none;
+}
+
+.btn-save-password {
+    background: #ccff00;
+    color: black;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn-save-password:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
+}
+
+.btn-logout {
+    width: 100%;
+    background: none;
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background: #ff4444;
+    color: white;
+}
