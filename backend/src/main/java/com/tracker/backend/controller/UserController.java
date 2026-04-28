@@ -6,7 +6,9 @@ import jakarta.annotation.Resource;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
@@ -33,4 +35,19 @@ public class UserController {
 
     @DeleteMapping("delete/user/by/{id}")
     public void deleteUserById(@PathVariable final Long id) {getUserFacade().deleteUser(id);}
+
+    @PutMapping("/change/password/{id}")
+    public ResponseEntity<String> changePassword(
+            @PathVariable Long id,
+            @RequestParam String currentPassword,
+            @RequestParam String newPassword) {
+        return getUserFacade().changePassword(id, currentPassword, newPassword);
+    }
+
+    @PostMapping("/upload/profile/image/{id}")
+    public ResponseEntity<String> uploadProfileImage(
+            @PathVariable Long id,
+            @RequestParam("image") MultipartFile image) throws IOException {
+        return getUserFacade().uploadProfileImage(id, image);
+    }
 }
