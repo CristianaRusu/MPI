@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
@@ -42,5 +43,16 @@ public class ActivityController {
     @GetMapping("/statistics/{userId}")
     public StatisticsDto getStatistics(@PathVariable Long userId) {
         return getActivityFacade().getStatistics(userId);
+    @GetMapping("/runs/{userId}")
+    public List<ActivityDto> getFilteredRuns(
+            @PathVariable final Long userId,
+            @RequestParam(required = false) final LocalDateTime startDate,
+            @RequestParam(required = false) final LocalDateTime endDate,
+            @RequestParam(required = false) final Double minDistance,
+            @RequestParam(required = false) final Double maxDistance,
+            @RequestParam(required = false) final Double minPace,
+            @RequestParam(required = false) final Double maxPace
+    ) {
+        return getActivityFacade().getFilteredRuns(userId, startDate, endDate, minDistance, maxDistance, minPace, maxPace);
     }
 }
