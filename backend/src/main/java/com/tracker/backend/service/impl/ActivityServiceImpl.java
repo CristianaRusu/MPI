@@ -12,6 +12,8 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -114,4 +116,31 @@ public class ActivityServiceImpl implements ActivityService {
 
         return dto;
     }
+
+    @Override
+    public int calculateRunningStreak(Long userId) {
+
+        var activities = getActivityRepository()
+                .findActivitiesByUserId(userId);
+
+        if (activities.isEmpty()) return 0;
+
+        List<LocalDate> distinctDays = activities.stream()
+                .map(a -> a.getStartTime().toLocalDate())
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .toList();
+
+        int streak = 1;
+        for (int i = 0; i < distinctDays.size() - 1; i++) {
+            if (distinctDays.get(i).minusDays(1).equals(distinctDays.get(i + 1))) {
+                streak++;
+            } else {
+                break;
+            }
+        }
+
+        return streak;
+    }
+
 }

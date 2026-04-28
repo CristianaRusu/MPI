@@ -11,6 +11,7 @@ public interface ActivityService {
     ActivityDto createActivity(final ActivityDto activityDto);
     ActivityDto getActivityById(final Long id);
     void deleteActivity(final Long id);
+    int calculateRunningStreak(Long userId);
     List<ActivityDto> getFilteredRuns(final Long userId,
                                       final LocalDateTime startDate,
                                       final LocalDateTime endDate,

@@ -40,6 +40,9 @@ public class ActivityController {
         getActivityFacade().deleteActivity(id);
     }
 
+    @GetMapping("/streak/{userId}")
+    public int getRunningStreak(@PathVariable Long userId) {
+        return getActivityFacade().calculateRunningStreak(userId);
     @GetMapping("/statistics/{userId}")
     public StatisticsDto getStatistics(@PathVariable Long userId) {
         return getActivityFacade().getStatistics(userId);

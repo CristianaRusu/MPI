@@ -4,13 +4,16 @@ import com.tracker.backend.entity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDateTime;
+import org.springframework.data.repository.query.Param;
 import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
+    @Query("SELECT a FROM Activity a WHERE a.user.id = :userId ORDER BY a.startTime DESC")
+    List<Activity> findActivitiesByUserId(@Param("userId") Long userId);
+
     @Query(value = """
         SELECT 
             SUM(distance_km),

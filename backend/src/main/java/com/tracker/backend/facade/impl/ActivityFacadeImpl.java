@@ -39,6 +39,10 @@ public class ActivityFacadeImpl implements ActivityFacade {
     }
 
     @Override
+    public int calculateRunningStreak(Long userId) {
+        return getActivityService().calculateRunningStreak(userId);
+    }
+
     public StatisticsDto getStatistics(Long userId){
         return getActivityService().getStatistics(userId);
     public List<ActivityDto> getFilteredRuns(final Long userId,
