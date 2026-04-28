@@ -4,6 +4,7 @@ import './ActivityList.css';
 
 const ActivityList = () => {
     const [activities, setActivities] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -23,6 +24,23 @@ const ActivityList = () => {
             });
     }, []);
 
+    const calculatePace = (startTime, endTime, distanceKm) => {
+        if (!startTime || !endTime || !distanceKm || distanceKm <= 0) return "N/A";
+        const start = new Date(startTime);
+        const end = new Date(endTime);
+        const diffMinutes = (end - start) / 60000;
+        return (diffMinutes / distanceKm).toFixed(2);
+    };
+
+    const filteredActivities = activities.filter(activity => {
+        const dateStr = new Date(activity.startTime).toLocaleDateString().toLowerCase();
+        const distanceStr = activity.distanceKm.toString().toLowerCase();
+        const paceVal = calculatePace(activity.startTime, activity.endTime, activity.distanceKm).toLowerCase();
+        const term = searchTerm.toLowerCase();
+
+        return dateStr.includes(term) || distanceStr.includes(term) || paceVal.includes(term);
+    });
+
     if (loading) return <div className="loading">Se încarcă activitățile...</div>;
 
     return (
@@ -30,11 +48,18 @@ const ActivityList = () => {
             <header className="list-header">
                 <button className="back-home-btn" onClick={() => navigate('/home')}>← Înapoi</button>
                 <h2>Istoric Alergări</h2>
-            </header>
 
+                <input
+                    type="text"
+                    className="filter-input"
+                    placeholder="Caută după dată, km sau pace..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </header>
             <div className="activity-grid">
-                {activities.length > 0 ? (
-                    activities.map((activity) => (
+                {filteredActivities.length > 0 ? (
+                    filteredActivities.map((activity) => (
                         <div
                             key={activity.id}
                             className="activity-card"
@@ -62,20 +87,14 @@ const ActivityList = () => {
                 ) : (
                     <div className="no-data">
                         <p>Nu am găsit nicio activitate.</p>
-                        <button onClick={() => navigate('/home')}>Adaugă prima alergare</button>
+                        <button className="btn-neon green" onClick={() => navigate('/home')}>
+                            Adaugă prima alergare
+                        </button>
                     </div>
                 )}
             </div>
         </div>
     );
-};
-
-const calculatePace = (startTime, endTime, distanceKm) => {
-    if (!startTime || !endTime || !distanceKm || distanceKm <= 0) return "N/A";
-    const start = new Date(startTime);
-    const end = new Date(endTime);
-    const diffMinutes = (end - start) / 60000;
-    return (diffMinutes / distanceKm).toFixed(2);
 };
 
 export default ActivityList;
