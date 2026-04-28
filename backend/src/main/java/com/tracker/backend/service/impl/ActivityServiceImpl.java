@@ -11,6 +11,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
@@ -22,7 +23,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<ActivityDto> getAllActivities() {
-        return activityRepository.findAll()
+        return getActivityRepository().findAll()
                 .stream()
                 .map(ActivityConverter::entityToActivityDto)
                 .toList();
@@ -45,7 +46,7 @@ public class ActivityServiceImpl implements ActivityService {
 
         activity.setPace(calculatedPace);
 
-        Activity savedActivity = activityRepository.save(activity);
+        Activity savedActivity = getActivityRepository().save(activity);
         return ActivityConverter.entityToActivityDto(savedActivity);
     }
 
@@ -57,9 +58,9 @@ public class ActivityServiceImpl implements ActivityService {
         return duration / distance;
     }
 
-   @Override
+    @Override
     public ActivityDto getActivityById(Long id) {
-        Activity activity = activityRepository.findById(id)
+        Activity activity = getActivityRepository().findById(id)
                 .orElseThrow(() -> new RuntimeException("Activitatea nu a fost găsită!"));
 
         return ActivityConverter.entityToActivityDto(activity);
@@ -67,6 +68,24 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void deleteActivity(Long id) {
-        activityRepository.deleteById(id);
+        getActivityRepository().deleteById(id);
+    }
+
+    @Override
+    public List<ActivityDto> getFilteredRuns(final Long userId,
+                                             final LocalDateTime startDate,
+                                             final LocalDateTime endDate,
+                                             final Double minDistance,
+                                             final Double maxDistance,
+                                             final Double minPace,
+                                             final Double maxPace) {
+
+        List<Activity> runs = getActivityRepository().findWithFilters(
+                userId, startDate, endDate, minDistance, maxDistance, minPace, maxPace
+        );
+
+        return runs.stream()
+                .map(ActivityConverter::entityToActivityDto)
+                .toList();
     }
 }

@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
@@ -36,5 +37,18 @@ public class ActivityController {
     @DeleteMapping("delete/activity/by/{id}")
     public void deleteActivityById(@PathVariable final Long id) {
         getActivityFacade().deleteActivity(id);
+    }
+
+    @GetMapping("/runs/{userId}")
+    public List<ActivityDto> getFilteredRuns(
+            @PathVariable final Long userId,
+            @RequestParam(required = false) final LocalDateTime startDate,
+            @RequestParam(required = false) final LocalDateTime endDate,
+            @RequestParam(required = false) final Double minDistance,
+            @RequestParam(required = false) final Double maxDistance,
+            @RequestParam(required = false) final Double minPace,
+            @RequestParam(required = false) final Double maxPace
+    ) {
+        return getActivityFacade().getFilteredRuns(userId, startDate, endDate, minDistance, maxDistance, minPace, maxPace);
     }
 }

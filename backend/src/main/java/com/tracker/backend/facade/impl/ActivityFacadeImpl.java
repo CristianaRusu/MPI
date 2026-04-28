@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
@@ -34,5 +35,16 @@ public class ActivityFacadeImpl implements ActivityFacade {
     @Override
     public void deleteActivity(Long id) {
         getActivityService().deleteActivity(id);
+    }
+
+    @Override
+    public List<ActivityDto> getFilteredRuns(final Long userId,
+                                             final LocalDateTime startDate,
+                                      final LocalDateTime endDate,
+                                      final Double minDistance,
+                                      final Double maxDistance,
+                                      final Double minPace,
+                                      final Double maxPace){
+        return getActivityService().getFilteredRuns(userId, startDate,endDate, minDistance, maxDistance, minPace, maxPace);
     }
 }
