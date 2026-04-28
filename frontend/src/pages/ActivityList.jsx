@@ -9,20 +9,30 @@ const ActivityList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/activities/get/all/activities')
-            .then(response => {
-                if (!response.ok) throw new Error("Eroare la server");
-                return response.json();
-            })
-            .then(data => {
-                setActivities(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching activities:', error);
-                setLoading(false);
-            });
-    }, []);
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        if (loggedInUser && loggedInUser.id) {
+            const defaultStart = "2000-01-01T00:00:00";
+            const defaultEnd = "2099-12-31T23:59:59";
+
+            fetch(`http://localhost:8080/api/activities/runs/${loggedInUser.id}?startDate=${defaultStart}&endDate=${defaultEnd}`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Eroare la server");
+                    return response.json();
+                })
+                .then(data => {
+                    setActivities(data);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error("Eroare la fetch activities:", error);
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
+            navigate('/');
+        }
+    }, [navigate]);
 
     const calculatePace = (startTime, endTime, distanceKm) => {
         if (!startTime || !endTime || !distanceKm || distanceKm <= 0) return "N/A";
@@ -34,14 +44,14 @@ const ActivityList = () => {
 
     const filteredActivities = activities.filter(activity => {
         const dateStr = new Date(activity.startTime).toLocaleDateString().toLowerCase();
-        const distanceStr = activity.distanceKm.toString().toLowerCase();
+        const distanceStr = activity.distanceKm ? activity.distanceKm.toString().toLowerCase() : "";
         const paceVal = calculatePace(activity.startTime, activity.endTime, activity.distanceKm).toLowerCase();
         const term = searchTerm.toLowerCase();
 
         return dateStr.includes(term) || distanceStr.includes(term) || paceVal.includes(term);
     });
 
-    if (loading) return <div className="loading">Se încarcă activitățile...</div>;
+    if (loading) return <div className="loading" style={{color: 'white', textAlign: 'center', marginTop: '50px'}}>Se încarcă activitățile...</div>;
 
     return (
         <div className="activity-list-container">
@@ -85,9 +95,9 @@ const ActivityList = () => {
                         </div>
                     ))
                 ) : (
-                    <div className="no-data">
-                        <p>Nu am găsit nicio activitate.</p>
-                        <button className="btn-neon green" onClick={() => navigate('/home')}>
+                    <div className="no-data" style={{textAlign: 'center', width: '100%', marginTop: '30px'}}>
+                        <p>Nu am găsit nicio activitate pentru contul tău.</p>
+                        <button className="btn-neon green" onClick={() => navigate('/home')} style={{marginTop: '20px', padding: '10px 20px', backgroundColor: '#ccff00', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'}}>
                             Adaugă prima alergare
                         </button>
                     </div>

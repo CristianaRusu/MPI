@@ -12,34 +12,43 @@
 
 .details-header {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     margin-bottom: 30px;
     border-bottom: 1px solid #333;
     padding-bottom: 20px;
+    position: relative;
+    min-height: 50px;
 }
 
 .details-header h2 {
     color: #ccff00;
-    margin-top: 15px;
+    margin: 0;
     font-size: 1.8rem;
     text-align: center;
 }
 
 .back-btn {
-    align-self: flex-start;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
     background: transparent;
-    color: #aaa;
-    border: 1px solid #555;
-    padding: 8px 15px;
-    border-radius: 5px;
+    color: #888;
+    border: 1px solid #444;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
+    white-space: nowrap;
 }
 
 .back-btn:hover {
-    background: #333;
-    color: #fff;
+    background: rgba(204, 255, 0, 0.05);
+    color: #ccff00;
+    border-color: #ccff00;
 }
 
 .details-card {
