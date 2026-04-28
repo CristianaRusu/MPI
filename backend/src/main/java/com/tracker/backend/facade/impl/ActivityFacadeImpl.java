@@ -1,6 +1,7 @@
 package com.tracker.backend.facade.impl;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.facade.ActivityFacade;
 import com.tracker.backend.service.ActivityService;
 import jakarta.annotation.Resource;
@@ -8,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
@@ -41,4 +43,15 @@ public class ActivityFacadeImpl implements ActivityFacade {
         return getActivityService().calculateRunningStreak(userId);
     }
 
+    public StatisticsDto getStatistics(Long userId){
+        return getActivityService().getStatistics(userId);
+    public List<ActivityDto> getFilteredRuns(final Long userId,
+                                             final LocalDateTime startDate,
+                                      final LocalDateTime endDate,
+                                      final Double minDistance,
+                                      final Double maxDistance,
+                                      final Double minPace,
+                                      final Double maxPace){
+        return getActivityService().getFilteredRuns(userId, startDate,endDate, minDistance, maxDistance, minPace, maxPace);
+    }
 }
