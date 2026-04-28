@@ -43,9 +43,13 @@ public class ActivityController {
     @GetMapping("/streak/{userId}")
     public int getRunningStreak(@PathVariable Long userId) {
         return getActivityFacade().calculateRunningStreak(userId);
+    }
+
     @GetMapping("/statistics/{userId}")
     public StatisticsDto getStatistics(@PathVariable Long userId) {
         return getActivityFacade().getStatistics(userId);
+    }
+
     @GetMapping("/runs/{userId}")
     public List<ActivityDto> getFilteredRuns(
             @PathVariable final Long userId,
