@@ -109,7 +109,7 @@ const Home = () => {
                 <button className="btn-neon blue" onClick={() => navigate('/activities')}>
                     📋 See Running Sessions
                 </button>
-                <button className="btn-neon purple" onClick={() => alert('Pagina de cont în construcție...')}>
+                <button className="btn-neon purple" onClick={() => navigate('/account')}>
                     👤 See Account
                 </button>
                 <button className="btn-outline red" onClick={handleDeleteAccount}>
