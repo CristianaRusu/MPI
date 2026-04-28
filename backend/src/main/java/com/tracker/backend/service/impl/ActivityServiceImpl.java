@@ -2,6 +2,7 @@ package com.tracker.backend.service.impl;
 
 import com.tracker.backend.converter.ActivityConverter;
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.RunningStreakDto;
 import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.entity.Activity;
 import com.tracker.backend.repository.ActivityRepository;
@@ -118,29 +119,58 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public int calculateRunningStreak(Long userId) {
+    public RunningStreakDto calculateRunningStreak(Long userId) {
+
+        RunningStreakDto dto = new RunningStreakDto();
 
         var activities = getActivityRepository()
                 .findActivitiesByUserId(userId);
 
-        if (activities.isEmpty()) return 0;
+        if (activities.isEmpty()) {
+            dto.setCurrentStreak(0);
+            dto.setLongestStreak(0);
+            return dto;
+        }
 
-        List<LocalDate> distinctDays = activities.stream()
+        // Current streak — pornim de la cea mai recentă zi, mergem înapoi
+        List<LocalDate> descDays = activities.stream()
                 .map(a -> a.getStartTime().toLocalDate())
                 .distinct()
                 .sorted(Comparator.reverseOrder())
                 .toList();
 
-        int streak = 1;
-        for (int i = 0; i < distinctDays.size() - 1; i++) {
-            if (distinctDays.get(i).minusDays(1).equals(distinctDays.get(i + 1))) {
-                streak++;
+        int currentStreak = 1;
+        for (int i = 0; i < descDays.size() - 1; i++) {
+            if (descDays.get(i).minusDays(1).equals(descDays.get(i + 1))) {
+                currentStreak++;
             } else {
                 break;
             }
         }
 
-        return streak;
+        // Longest streak — parcurgem toate zilele în ordine crescătoare
+        List<LocalDate> ascDays = activities.stream()
+                .map(a -> a.getStartTime().toLocalDate())
+                .distinct()
+                .sorted()
+                .toList();
+
+        int longestStreak = 1;
+        int tempStreak = 1;
+        for (int i = 1; i < ascDays.size(); i++) {
+            if (ascDays.get(i - 1).plusDays(1).equals(ascDays.get(i))) {
+                tempStreak++;
+                if (tempStreak > longestStreak) {
+                    longestStreak = tempStreak;
+                }
+            } else {
+                tempStreak = 1;
+            }
+        }
+
+        dto.setCurrentStreak(currentStreak);
+        dto.setLongestStreak(longestStreak);
+        return dto;
     }
 
 }

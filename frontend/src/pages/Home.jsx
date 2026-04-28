@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,12 +6,24 @@ const Home = () => {
     const navigate = useNavigate();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [streak, setStreak] = useState(null);
 
     const [activityData, setActivityData] = useState({
         distance: '',
         duration: '',
         date: ''
     });
+
+    useEffect(() => {
+        const userString = localStorage.getItem('loggedInUser');
+        if (!userString) return;
+        const userId = JSON.parse(userString).id;
+
+        fetch(`http://localhost:8080/api/activities/streak/${userId}`)
+            .then(res => res.ok ? res.json() : null)
+            .then(data => setStreak(data))
+            .catch(() => setStreak(null));
+    }, []);
 
     const handleLogout = () => {
         localStorage.clear();
@@ -100,6 +112,19 @@ const Home = () => {
             <div className="home-header">
                 <h1>🏃‍♂️ RUN TRACKER</h1>
                 <p>Dashboard-ul tău de alergare</p>
+            </div>
+
+            <div className="streak-section">
+                <div className="streak-card">
+                    <span className="streak-icon">🔥</span>
+                    <span className="streak-value">{streak ? streak.currentStreak : '—'}</span>
+                    <span className="streak-label">Streak curent</span>
+                </div>
+                <div className="streak-card">
+                    <span className="streak-icon">🏆</span>
+                    <span className="streak-value">{streak ? streak.longestStreak : '—'}</span>
+                    <span className="streak-label">Cel mai lung streak</span>
+                </div>
             </div>
 
             <div className="home-buttons-grid">
