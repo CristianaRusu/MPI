@@ -107,6 +107,9 @@ const Home = () => {
                 <button className="btn-neon blue" onClick={() => alert('În viitor: PLP cu alergările...')}>
                     📋 See Running Sessions
                 </button>
+                <button className="btn-neon orange" onClick={() => navigate('/statistics')}>
+                    📊 See Statistics
+                </button>
                 <button className="btn-neon purple" onClick={() => alert('Pagina de cont în construcție...')}>
                     👤 See Account
                 </button>
