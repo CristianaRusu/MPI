@@ -12,15 +12,17 @@ public class UserDto {
     private String password;
     private LocalDateTime createdDate;
     private LocalDateTime lastLogin;
+    private byte[] profileImage;
 
     public UserDto() {}
 
-    public UserDto(Long id, String username, String email, String password, LocalDateTime createdDate, LocalDateTime lastLogin) {
+    public UserDto(Long id, String username, String email, String password, LocalDateTime createdDate, LocalDateTime lastLogin, byte[] profileImage) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.createdDate = createdDate;
         this.lastLogin = lastLogin;
+        this.profileImage = profileImage;
     }
 }
