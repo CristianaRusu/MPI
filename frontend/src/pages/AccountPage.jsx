@@ -29,16 +29,14 @@ const AccountPage = () => {
         navigate('/');
     };
 
+
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-
-        const imageUrl = URL.createObjectURL(file);
-        setProfileImage(imageUrl);
-
         const formData = new FormData();
         formData.append('image', file);
+
         try {
             const response = await fetch(`http://localhost:8080/api/users/upload/profile/image/${userData.id}`, {
                 method: 'POST',
@@ -46,15 +44,23 @@ const AccountPage = () => {
             });
 
             if (response.ok) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const base64String = reader.result;
+                    setProfileImage(base64String);
+
+                    const updatedUser = { ...userData, profileImage: base64String };
+                    localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+                };
+                reader.readAsDataURL(file);
+
                 alert("Poza de profil a fost actualizată! 📸");
-                const updatedUser = { ...userData, profileImage: imageUrl };
-                localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
-                setUserData(updatedUser);
             } else {
                 alert("Eroare la salvarea imaginii pe server.");
             }
         } catch (error) {
             console.error("Eroare upload:", error);
+            alert("Eroare de conexiune la server.");
         }
     };
 
@@ -104,26 +110,20 @@ const AccountPage = () => {
                 </header>
 
                 <section className="profile-section">
-                    <div className="avatar-container">
-                        <div className="avatar-circle">
-                            {profileImage ? (
-                                <img src={profileImage} alt="Profile" />
-                            ) : (
-                                <span className="avatar-placeholder">
-                                    {userData.name ? userData.name.charAt(0).toUpperCase() : 'U'}
-                                </span>
-                            )}
-                        </div>
-                        <label className="image-upload-label">
-                            Schimbă fotografia de profil
-                            <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
-                        </label>
+                    <div className="avatar-circle">
+                        {profileImage ? (
+                            <img src={profileImage} alt="Profile" />
+                        ) : (
+                            <span className="avatar-placeholder">
+                                {userData.name ? userData.name.charAt(0).toUpperCase() : 'U'}
+                            </span>
+                        )}
                     </div>
-
-                    <div className="user-basic-info">
-                        <h2>{userData.name}</h2>
-                        <p>{userData.email}</p>
-                    </div>
+                    <label className="image-upload-label">
+                        Schimbă fotografia de profil
+                        <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
+                    </label>
+                    <p className="user-email-display" style={{marginTop: '10px', color: '#ccc'}}>{userData.email}</p>
                 </section>
 
                 <section className="password-section">
