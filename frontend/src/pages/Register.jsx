@@ -89,7 +89,6 @@ const Register = () => {
 
                 <div className="login-link-container">
                     <p>Ai deja un cont?</p>
-                    {}
                     <button className="btn-outline gray" onClick={() => navigate('/')}>
                         Mergi la Login
                     </button>
