@@ -137,7 +137,6 @@ const Home = () => {
                 <button className="btn-neon orange" onClick={() => navigate('/statistics')}>
                     📊 See Statistics
                 </button>
-                <button className="btn-neon purple" onClick={() => alert('Pagina de cont în construcție...')}>
                 <button className="btn-neon purple" onClick={() => navigate('/account')}>
                     👤 See Account
                 </button>
