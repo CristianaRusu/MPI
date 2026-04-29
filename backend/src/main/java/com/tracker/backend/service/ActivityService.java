@@ -1,6 +1,7 @@
 package com.tracker.backend.service;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.RunningStreakDto;
 import com.tracker.backend.dto.StatisticsDto;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ public interface ActivityService {
     ActivityDto createActivity(final ActivityDto activityDto);
     ActivityDto getActivityById(final Long id);
     void deleteActivity(final Long id);
-    int calculateRunningStreak(Long userId);
+    RunningStreakDto calculateRunningStreak(Long userId);
     List<ActivityDto> getFilteredRuns(final Long userId,
                                       final LocalDateTime startDate,
                                       final LocalDateTime endDate,

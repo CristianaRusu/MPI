@@ -1,6 +1,7 @@
 package com.tracker.backend.facade.impl;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.RunningStreakDto;
 import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.facade.ActivityFacade;
 import com.tracker.backend.service.ActivityService;
@@ -39,7 +40,7 @@ public class ActivityFacadeImpl implements ActivityFacade {
     }
 
     @Override
-    public int calculateRunningStreak(Long userId) {
+    public RunningStreakDto calculateRunningStreak(Long userId) {
         return getActivityService().calculateRunningStreak(userId);
     }
 

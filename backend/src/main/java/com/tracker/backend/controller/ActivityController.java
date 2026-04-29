@@ -1,6 +1,7 @@
 package com.tracker.backend.controller;
 
 import com.tracker.backend.dto.ActivityDto;
+import com.tracker.backend.dto.RunningStreakDto;
 import com.tracker.backend.dto.StatisticsDto;
 import com.tracker.backend.facade.ActivityFacade;
 import jakarta.annotation.Resource;
@@ -41,7 +42,7 @@ public class ActivityController {
     }
 
     @GetMapping("/streak/{userId}")
-    public int getRunningStreak(@PathVariable Long userId) {
+    public RunningStreakDto getRunningStreak(@PathVariable Long userId) {
         return getActivityFacade().calculateRunningStreak(userId);
     }
 
